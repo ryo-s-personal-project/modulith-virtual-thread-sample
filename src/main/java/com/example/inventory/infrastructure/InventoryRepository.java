@@ -1,0 +1,13 @@
+package com.example.inventory.infrastructure;
+
+import com.example.inventory.domain.InventoryItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
+public interface InventoryRepository extends JpaRepository<InventoryItem, UUID> {
+    Optional<InventoryItem> findByProductId(String productId);
+}

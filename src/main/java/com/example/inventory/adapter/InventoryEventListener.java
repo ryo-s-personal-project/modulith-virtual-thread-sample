@@ -8,7 +8,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -20,7 +19,6 @@ public class InventoryEventListener {
     
     @ApplicationModuleListener
     @Async
-    @Transactional
     public void onOrderCreated(com.example.order.adapter.OrderCreatedEvent event) {
         log.info("OrderCreatedEventを受信しました: 商品ID={}, 数量={} (スレッド: {})", 
                 event.productId(), event.quantity(), Thread.currentThread());
@@ -65,7 +63,6 @@ public class InventoryEventListener {
     
     @ApplicationModuleListener
     @Async
-    @Transactional
     public void onOrderCancelled(com.example.order.adapter.OrderCancelledEvent event) {
         log.info("OrderCancelledEventを受信しました: 注文ID={} (スレッド: {})", 
                 event.orderId(), Thread.currentThread());

@@ -11,8 +11,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "notifications")
-@Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Notification {
@@ -34,6 +32,55 @@ public class Notification {
     private NotificationStatus status;
     
     private LocalDateTime sentAt;
+    
+    // Getters and Setters
+    public UUID getId() {
+        return id;
+    }
+    
+    public void setId(UUID id) {
+        this.id = id;
+    }
+    
+    public String getRecipientId() {
+        return recipientId;
+    }
+    
+    public void setRecipientId(String recipientId) {
+        this.recipientId = recipientId;
+    }
+    
+    public String getType() {
+        return type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+    
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    
+    public NotificationStatus getStatus() {
+        return status;
+    }
+    
+    public void setStatus(NotificationStatus status) {
+        this.status = status;
+    }
+    
+    public LocalDateTime getSentAt() {
+        return sentAt;
+    }
+    
+    public void setSentAt(LocalDateTime sentAt) {
+        this.sentAt = sentAt;
+    }
     
     @PrePersist
     protected void onCreate() {

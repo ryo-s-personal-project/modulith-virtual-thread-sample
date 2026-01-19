@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -19,7 +18,6 @@ public class ShippingEventListener {
     
     @ApplicationModuleListener
     @Async
-    @Transactional
     public void onOrderConfirmed(com.example.order.adapter.OrderConfirmedEvent event) {
         log.info("OrderConfirmedEventを受信しました: 注文ID={} (スレッド: {})", 
                 event.orderId(), Thread.currentThread());

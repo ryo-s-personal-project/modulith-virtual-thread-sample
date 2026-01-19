@@ -3,7 +3,8 @@ package com.example.order.application;
 import com.example.order.domain.Order;
 import com.example.order.infrastructure.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,9 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class OrderService {
+    
+    private static final Logger log = LoggerFactory.getLogger(OrderService.class);
     
     private final OrderRepository orderRepository;
     private final ApplicationEventPublisher eventPublisher;
@@ -27,13 +29,12 @@ public class OrderService {
         
         BigDecimal totalAmount = command.unitPrice().multiply(BigDecimal.valueOf(command.quantity()));
         
-        Order order = Order.builder()
-                .customerId(command.customerId())
-                .productId(command.productId())
-                .quantity(command.quantity())
-                .totalAmount(totalAmount)
-                .status(Order.OrderStatus.PENDING)
-                .build();
+        Order order = new Order();
+        order.setCustomerId(command.customerId());
+        order.setProductId(command.productId());
+        order.setQuantity(command.quantity());
+        order.setTotalAmount(totalAmount);
+        order.setStatus(Order.OrderStatus.PENDING);
         
         order = orderRepository.save(order);
         
